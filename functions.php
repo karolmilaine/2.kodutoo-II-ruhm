@@ -142,13 +142,7 @@ require("../../config.php");
 	
 	
 	
-	function cleanInput($input){
-		$input = trim($imput);
-		$input = htmlspecialchars($input);
-		$input = stripslashes($input);
-		return $imput;
-		
-	}
+	
 	
 	
 	
