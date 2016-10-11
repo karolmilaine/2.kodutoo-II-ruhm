@@ -4,7 +4,7 @@
 	
 	// kui kasutaja on sisseloginud, siis suuna data lehele
 	if(isset ($_SESSION["userId"])) {
-		header("Location: avalehekülg.php");
+		header("Location: avalehekulg.php");
 		exit();
 	}
 	//var_dump($_GET);
