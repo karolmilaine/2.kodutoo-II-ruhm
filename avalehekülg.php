@@ -12,7 +12,7 @@
 	}
 	
 	
-	//kas kasutaja tahab välja logida
+	//kas kasutaja tahab vÃ¤lja logida
 	// kas aadressireal on logout olemas
 	if (isset($_GET["logout"])) {
 		
@@ -24,7 +24,7 @@
 	$msg = "";
 	if(isset($_SESSION["message"])){
 		$msg = $_SESSION["message"];
-		//kui ühe näitame siis kustuta ära, et pärast refreshi ei näitaks
+		//kui Ã¼he nÃ¤itame siis kustuta Ã¤ra, et pÃ¤rast refreshi ei nÃ¤itaks
 		unset($_SESSION["message"]);
 		
 	
@@ -61,17 +61,17 @@ header {
 <p>
 	Tere tulemast <?=$_SESSION["userEmail"];?>!
 	<p> <span style="font-family: tahoma, arial, helvetica, sans-serif;">
-	Kesklinna noortekeskuse vabatahtlike klubi korraldab igakuiselt külastusi 
-	erinevate organisatsioonide juurde, mis ühelt poolt omavad hariduslikku 
-	aspekti ning teisalt täidavad abistamise eesmärki. Lisaks sellele püüab 
-	klubi oma liikmetele vahendada võimalikult palju informatsiooni vabatahtliku 
-	töö võimalustest üldiselt ning korraldada fun-üritusi tänuks tubli töö eest. 
-	Mõned toimunud äramainimist väärivad ettevõtmised: Toidupanga abistamine, 
-	Tallinn Music Week, Teeme Ära talgud, Tallinna Vanalinna Päevad jne.</span>
+	Kesklinna noortekeskuse vabatahtlike klubi korraldab igakuiselt kÃ¼lastusi 
+	erinevate organisatsioonide juurde, mis Ã¼helt poolt omavad hariduslikku 
+	aspekti ning teisalt tÃ¤idavad abistamise eesmÃ¤rki. Lisaks sellele pÃ¼Ã¼ab 
+	klubi oma liikmetele vahendada vÃµimalikult palju informatsiooni vabatahtliku 
+	tÃ¶Ã¶ vÃµimalustest Ã¼ldiselt ning korraldada fun-Ã¼ritusi tÃ¤nuks tubli tÃ¶Ã¶ eest. 
+	MÃµned toimunud Ã¤ramainimist vÃ¤Ã¤rivad ettevÃµtmised: Toidupanga abistamine, 
+	Tallinn Music Week, Teeme Ã„ra talgud, Tallinna Vanalinna PÃ¤evad jne.</span>
 	</p>
 	<p> <span style="font-family: tahoma, arial, helvetica, sans-serif;">
-	Vabatahtlike klubi on avatud kõikidele huvilistele, 
-	kuid eelkõige Kesklinna noortekeskuse sihtrühmale, 
+	Vabatahtlike klubi on avatud kÃµikidele huvilistele, 
+	kuid eelkÃµige Kesklinna noortekeskuse sihtrÃ¼hmale, 
 	milleks on noored vanuses 16-26. Lisainfo: </span>
 	<span id="cloak35897"><a 
 	href="mailto:ivar@tallinnanoored.ee">ivar@tallinnanoored.ee</a>
@@ -95,7 +95,7 @@ header {
 </div>
  
 
-	<a href="?logout=1">Logi välja</a>
+	<a href="?logout=1">Logi vÃ¤lja</a>
 </p>
 
 

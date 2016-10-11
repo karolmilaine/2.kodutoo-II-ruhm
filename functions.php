@@ -3,7 +3,7 @@ require("../../config.php");
 	// functions.php
 	
 	// et saab kasutada $_SESSION muutujaid
-	// kõigis failides mis on selle failiga seotud
+	// kÃµigis failides mis on selle failiga seotud
 	session_start();
 	
 	
@@ -26,7 +26,7 @@ require("../../config.php");
 		
 		$stmt->bind_param("ss", $email, $password );
 		if ( $stmt->execute() ) {
-			echo "salvestamine õnnestus";	
+			echo "salvestamine Ãµnnestus";	
 		} else {	
 			echo "ERROR ".$stmt->error;
 		}
@@ -50,7 +50,7 @@ require("../../config.php");
 		// asendan ?
 		$stmt->bind_param("s", $email);
 		
-		// määran muutujad reale mis kätte saan
+		// mÃ¤Ã¤ran muutujad reale mis kÃ¤tte saan
 		$stmt->bind_result($id, $emailFromDb, $passwordFromDb, $created);
 		
 		$stmt->execute();
@@ -58,11 +58,11 @@ require("../../config.php");
 		// ainult SLECTI'i puhul
 		if ($stmt->fetch()) {
 			
-			// vähemalt üks rida tuli
-			// kasutaja sisselogimise parool räsiks
+			// vÃ¤hemalt Ã¼ks rida tuli
+			// kasutaja sisselogimise parool rÃ¤siks
 			$hash = hash("sha512", $password);
 			if ($hash == $passwordFromDb) {
-				// õnnestus 
+				// Ãµnnestus 
 				echo "Kasutaja ".$id." logis sisse";
 				
 				$_SESSION["userId"] = $id;
@@ -77,7 +77,7 @@ require("../../config.php");
 			}
 			
 		} else {
-			// ei leitud ühtegi rida
+			// ei leitud Ã¼htegi rida
 			$notice = "Sellist emaili ei ole!";
 		}
 		
@@ -85,58 +85,7 @@ require("../../config.php");
 	}
 	
 	
-	function saveCar($plate,$varv){
-		$database="if16_karojyrg_2";
-		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
-	$stmt = $mysqli->prepare("INSERT INTO cars_and_colors(plate,varv)VALUES(?,?)");
-	echo $mysqli->error;
-	$stmt-> bind_param("ss",$plate,$varv);
-	if($stmt->execute()){
-		echo "salvestamine õnnestus";
-		
-	}else{
-		echo "ERROR".$stmt->error;
-	}
-	$stmt->close();
-	$mysqli->close();
-	}
 	
-	function getAllCars(){
-		$database="if16_karojyrg_2";
-		$mysqli = new mysqli ($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
-		$stmt = $mysqli ->prepare("
-		SELECT id, plate, varv
-		FROM cars_and_colors
-		");
-		echo $mysqli->error;
-		
-		$stmt ->bind_result($id, $plate, $varv);
-		$stmt->execute();
-		
-		//tekitan massiivi
-		$result = array();
-		
-		
-		//tee seda seni, kuni on rida andmeid
-		//mis vastab select lausele
-		while($stmt->fetch()) {
-			//tekitan objekti
-			$car=new StdClass();
-			$car->id = $id;
-			$car->plate = $plate;
-			$car->varv = $varv;
-			//echo $plate."<br>";
-			//igakord massivi lisan juurde nr märgi
-			array_push($result,$car);
-		}
-		
-		
-		
-		
-		$stmt->close();
-		$mysqli->close();
-		
-		return $result;
 		
 	}
 	
@@ -147,31 +96,4 @@ require("../../config.php");
 	
 	
 	
-	/*function sum($x, $y) {
-		
-		$answer = $x+$y;
-		
-		return $answer;
-	}
-	
-	function hello($firstname, $lastname) {
-		
-		return 
-		"Tere tulemast "
-		.$firstname
-		." "
-		.$lastname
-		."!";
-		
-	}
-	
-	echo sum(123123789523,1239862345);
-	echo "<br>";
-	echo sum(1,2);
-	echo "<br>";
-	
-	$firstname = "Romil";
-	
-	echo hello($firstname, "R.");
-	*/
 ?>
