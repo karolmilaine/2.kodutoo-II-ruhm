@@ -109,40 +109,41 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8" />
 		<title>Sisselogimise leht</title>
+		
 	</head>
 	<body>
-
+		<div class="containe">
 		<h1>Logi sisse</h1>
+		
+		<link rel="stylesheet" href="style1.css">
+		
 		<p style="color:red;"><?php echo $notice; ?></p>
 		<form method="POST">
 			
-			<label>E-post</label><br>
-			<input name="loginEmail" type="email">
+			<br>
+			<input placeholder="E-mail" name="loginEmail" type="email" >
 			
-			<br><br>
 			
-			<label>Parool</label><br>
-			<input name="loginPassword" type="password">
+			<input placeholder="parool" name="loginPassword" type="password">
 						
-			<br><br>
 			
-			<input type="submit">
+			<input type="submit" value="Logi sisse">
 		
 		</form>
+		</div>
 		
 		<h1>Loo kasutaja</h1>
 		
 		<form method="POST">
 			
-			<label>E-post</label><br>
-			<input name="signupEmail" type="email" value="<?=$signupEmail;?>" > <?php echo $signupEmailError; ?>
+			<br>
+			<input placeholder="E-mail" name="signupEmail" type="email" value="<?=$signupEmail;?>" > <?php echo $signupEmailError; ?>
 			
-			<br><br>
 			
 			<input placeholder="Parool" name="signupPassword" type="password"> <?php echo $signupPasswordError; ?>
 						
-			<br><br>
 			
 			<?php if ($gender == "male") { ?>
 				<input type="radio" name="gender" value="male" checked > Mees<br>

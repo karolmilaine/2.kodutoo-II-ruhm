@@ -59,15 +59,25 @@ header {
 
 
 <p>
+
+	
+
+
 	Tere tulemast <?=$_SESSION["userEmail"];?>!
-	<p> <span style="font-family: tahoma, arial, helvetica, sans-serif;">
+	
+	
+	<p> 
+	<span style="font-family: tahoma, arial, helvetica, sans-serif;">
+	
 	Kesklinna noortekeskuse vabatahtlike klubi korraldab igakuiselt külastusi 
 	erinevate organisatsioonide juurde, mis ühelt poolt omavad hariduslikku 
 	aspekti ning teisalt täidavad abistamise eesmärki. Lisaks sellele püüab 
 	klubi oma liikmetele vahendada võimalikult palju informatsiooni vabatahtliku 
 	töö võimalustest üldiselt ning korraldada fun-üritusi tänuks tubli töö eest. 
 	Mõned toimunud äramainimist väärivad ettevõtmised: Toidupanga abistamine, 
-	Tallinn Music Week, Teeme Ära talgud, Tallinna Vanalinna Päevad jne.</span>
+	Tallinn Music Week, Teeme Ära talgud, Tallinna Vanalinna Päevad jne.
+	
+	</span>
 	</p>
 	<p> <span style="font-family: tahoma, arial, helvetica, sans-serif;">
 	Vabatahtlike klubi on avatud kõikidele huvilistele, 
@@ -76,7 +86,10 @@ header {
 	<span id="cloak35897"><a 
 	href="mailto:ivar@tallinnanoored.ee">ivar@tallinnanoored.ee</a>
 	</span><script type="text/javascript">
+	
+	
  </script></p>
+ 
  
  <h4>Lahtiolekuajad</h4>
  <div class="bannergroup">
