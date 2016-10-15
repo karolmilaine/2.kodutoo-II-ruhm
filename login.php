@@ -114,15 +114,18 @@
 		
 	</head>
 	<body>
-		<div class="containe">
+		
+	<div class="fieldBlock1">
+	
 		<h1>Logi sisse</h1>
+		
 		
 		<link rel="stylesheet" href="style1.css">
 		
 		<p style="color:red;"><?php echo $notice; ?></p>
 		<form method="POST">
 			
-			<br>
+			
 			<input placeholder="E-mail" name="loginEmail" type="email" >
 			
 			
@@ -130,15 +133,22 @@
 						
 			
 			<input type="submit" value="Logi sisse">
+			
+			
 		
 		</form>
-		</div>
 		
+	</div>	
+		
+		
+	<div class="fieldBlock2">
+	
 		<h1>Loo kasutaja</h1>
 		
 		<form method="POST">
 			
-			<br>
+			
+		
 			<input placeholder="E-mail" name="signupEmail" type="email" value="<?=$signupEmail;?>" > <?php echo $signupEmailError; ?>
 			
 			
@@ -146,13 +156,13 @@
 						
 			
 			<?php if ($gender == "male") { ?>
-				<input type="radio" name="gender" value="male" checked > Mees<br>
+				<input type="radio" name="gender" value="male" checked > Mees
 			<?php } else { ?>
-				<input type="radio" name="gender" value="male"> Mees<br>
+				<input type="radio" name="gender" value="male"> Mees
 			<?php } ?>
 			
 			<?php if ($gender == "female") { ?>
-				<input type="radio" name="gender" value="female" checked > Naine<br>
+				<input type="radio" name="gender" value="female" checked > Naine
 			<?php } else { ?>
 				<input type="radio" name="gender" value="female"> Naine<br>
 			<?php } ?>
@@ -166,6 +176,6 @@
 			<input type="submit" value="Loo kasutaja">
 		
 		</form>
-
+	</div>
 	</body>
 </html>

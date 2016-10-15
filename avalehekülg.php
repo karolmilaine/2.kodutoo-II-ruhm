@@ -50,7 +50,7 @@
 header {
     padding: 1em;
     color: white;
-    background-color: black;
+    background-color: #94cfdd;
     clear: left;
     text-align: center;
 }

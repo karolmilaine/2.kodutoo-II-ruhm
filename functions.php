@@ -70,7 +70,7 @@ require("../../config.php");
 				
 				$_SESSION[message] = "<h1>Tere tulemast!</h1>";
 				
-				header("Location: data.php");
+				header("Location: avalehekülg.php");
 				
 			} else {
 				$notice = "Vale parool!";
