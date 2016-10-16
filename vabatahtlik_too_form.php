@@ -78,6 +78,11 @@ li a.active {
 
 <br><br>
 
+<label>Asukoht</label><br>
+<input name="place" type=text>
+
+<br><br>
+
 <label> Sisestage ürituse kirjeldus</label><br>
 <textarea name="evenr_descripition" cols="30" rows="5"></textarea>
 
@@ -92,7 +97,62 @@ li a.active {
 
 </form>
 
-<h2>Vabatahtlik töö</h2>
+
+<?php 
+	// et saada ligi sessioonile
+	require("functions.php");
+	
+	//ei ole sisseloginud, suunan login lehele
+	if(!isset ($_SESSION["userId"])) {
+		header("Location: login.php");
+		exit();
+	}
+	
+	
+	//kas kasutaja tahab välja logida
+	// kas aadressireal on logout olemas
+	if (isset($_GET["logout"])) {
+		
+		session_destroy();
+		
+		header("Location: login.php");
+		
+	}
+	$msg = "";
+	if(isset($_SESSION["message"])){
+		$msg = $_SESSION["message"];
+		//kui ühe näitame siis kustuta ära, et pärast refreshi ei näitaks
+		unset($_SESSION["message"]);
+		
+	
+	}
+	
+	var_dump($_POST);
+	
+    if(isset($_POST["nimi"]) &&
+	isset($_POST["asukoht"]) &&
+	isset($_POST["kirjeldus"])&&
+	isset($_POST["aeg"])&&
+	!empty($_POST["nimi"])&&
+	!empty($_POST["asukoht"])&&
+	!empty($_POST["kirjeldus"])&&
+	!empty($_POST["aeg"])
+	){
+		saveVabatahtlik(cleanInput($_POST["nimi"]),$_POST["asukoht"],$_POST["kirjeldus"],$_POST["aeg"]);
+    }
+	
+	//saan kõik auto andmed
+	getAllVabatahtlik();
+	echo "<pre>";
+
+	
+	//saan kõik auto andmed
+	$VabatahtlikData = getAllVabatahtlik();
+	//var_dump($carData);
+	
+	echo "</pre>";
+?>
+
 <?php
 
 $html = "<table>";
@@ -100,6 +160,7 @@ $html = "<table>";
 $html .= "<tr>";
 	$html .= "<th>id</th>";
 	$html .= "<th>nimi</th>";
+	$html .= "<th>asukoht</th>";
 	$html .= "<th>kirjeldus</th>";
 	$html .= "<th>aeg</th>";
 
@@ -107,21 +168,21 @@ $html .= "</tr>";
 
 
 //iga liikme kohta massiivis
-foreach($vabatahtlikData as $c){
+foreach($VabatahtlikData as $c){
 	
 	$html .= "<tr>";
 	$html .= "<td>".$c->id."</td>";
 	$html .= "<td>".$c->nimi."</td>";
+	$html .= "<td>".$c->asukoht."</td>";
 	$html .= "<td>".$c->kirjeldus."</td>";
 	$html .= "<td>".$c->aeg."</td>";
 	
 
 $html .= "</tr>";
 
-	//iga töö on $c
-	
+	//iga auto on $c
+	//echo $c->plate."<br>";
 	
 }
-$html .= "</table>";
 
-echo $html;
+?>

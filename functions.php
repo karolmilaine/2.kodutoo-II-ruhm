@@ -90,12 +90,12 @@ require("../../config.php");
 	
 	
 	
-	function saveVabatahtliktoo($nimi,$kirjeldus,$aeg){
+	function saveVabatahtlik($nimi,$asukoht,$kirjeldus,$aeg){
 		$database="if16_karojyrg_2";
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
-	$stmt = $mysqli->prepare("INSERT INTO Vabatahtliktoo(nimi,kirjeldus,aeg)VALUES(?,?,?)");
+	$stmt = $mysqli->prepare("INSERT INTO Vabatahtliktoo(nimi,asukoht,kirjeldus,aeg)VALUES(?,?,?)");
 	echo $mysqli->error;
-	$stmt-> bind_param("ss",$nimi,$kirjeldus);
+	$stmt-> bind_param("ss",$nimi,$asukoht,$kirjeldus,$aeg);
 	if($stmt->execute()){
 		echo "salvestamine õnnestus";
 		
@@ -106,16 +106,16 @@ require("../../config.php");
 	$mysqli->close();
 	}
 	
-	function getAllVabatahtliktoo(){
+	function getAllVabatahtlik(){
 		$database="if16_karojyrg_2";
 		$mysqli = new mysqli ($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
 		$stmt = $mysqli ->prepare("
-		SELECT id, nimi, kirjeldus, aeg
+		SELECT id, nimi, asukoht, kirjeldus, aeg
 		FROM Vabatahtliktoo
 		");
 		echo $mysqli->error;
 		
-		$stmt ->bind_result($id, $nimi, $kirjeldus, $aeg);
+		$stmt ->bind_result($id, $nimi,$asukoht, $kirjeldus, $aeg);
 		$stmt->execute();
 		
 		//tekitan massiivi
@@ -129,6 +129,7 @@ require("../../config.php");
 			$vabatahtlik=new StdClass();
 			$vabatahtlik->id = $id;
 			$vabatahtlik->nimi = $nimi;
+			$vabatahtlik->asukoht = $asukoht;
 			$vabatahtlik->kirjeldus = $kirjeldus;
 			$vabatahtlik->aeg = $aeg;
 			
