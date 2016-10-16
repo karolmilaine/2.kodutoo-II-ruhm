@@ -91,3 +91,37 @@ li a.active {
 <input type="submit" value="Salvesta">
 
 </form>
+
+<h2>Vabatahtlik töö</h2>
+<?php
+
+$html = "<table>";
+
+$html .= "<tr>";
+	$html .= "<th>id</th>";
+	$html .= "<th>nimi</th>";
+	$html .= "<th>kirjeldus</th>";
+	$html .= "<th>aeg</th>";
+
+$html .= "</tr>";
+
+
+//iga liikme kohta massiivis
+foreach($vabatahtlikData as $c){
+	
+	$html .= "<tr>";
+	$html .= "<td>".$c->id."</td>";
+	$html .= "<td>".$c->nimi."</td>";
+	$html .= "<td>".$c->kirjeldus."</td>";
+	$html .= "<td>".$c->aeg."</td>";
+	
+
+$html .= "</tr>";
+
+	//iga töö on $c
+	
+	
+}
+$html .= "</table>";
+
+echo $html;

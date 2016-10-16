@@ -64,16 +64,6 @@ li a.active {
 </html>
 
 
-
-
- <h4>Lahtiolekuajad</h4>
- <div class="bannergroup">
-	Avatud: E-R 14-20:00
-
-	<div class="bannerfooter">
-		Suletud: L,P	</div>
-</div>
-
  <h4>Lahtiolekuajad</h4>
  <div class="bannergroup">
 	Avatud: E-R 14-20:00
@@ -89,3 +79,8 @@ li a.active {
 	<div class="bannerfooter">
 		Tel. (+372)641 0021	</div>
 </div>
+<br><br>
+Lisainfo: </span>
+	<span id="cloak35897"><a 
+	href="mailto:ivar@tallinnanoored.ee">ivar@tallinnanoored.ee</a>
+	</span><script type="text/javascript">

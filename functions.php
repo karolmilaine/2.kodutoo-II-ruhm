@@ -86,18 +86,76 @@ require("../../config.php");
 	
 	
 	
+	
+	
+	
+	
+	function saveVabatahtliktoo($nimi,$kirjeldus,$aeg){
+		$database="if16_karojyrg_2";
+		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+	$stmt = $mysqli->prepare("INSERT INTO Vabatahtliktoo(nimi,kirjeldus,aeg)VALUES(?,?,?)");
+	echo $mysqli->error;
+	$stmt-> bind_param("ss",$nimi,$kirjeldus);
+	if($stmt->execute()){
+		echo "salvestamine õnnestus";
+		
+	}else{
+		echo "ERROR".$stmt->error;
+	}
+	$stmt->close();
+	$mysqli->close();
+	}
+	
+	function getAllVabatahtliktoo(){
+		$database="if16_karojyrg_2";
+		$mysqli = new mysqli ($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+		$stmt = $mysqli ->prepare("
+		SELECT id, nimi, kirjeldus, aeg
+		FROM Vabatahtliktoo
+		");
+		echo $mysqli->error;
+		
+		$stmt ->bind_result($id, $nimi, $kirjeldus, $aeg);
+		$stmt->execute();
+		
+		//tekitan massiivi
+		$result = array();
 		
 		
-	
+		//tee seda seni, kuni on rida andmeid
+		//mis vastab select lausele
+		while($stmt->fetch()) {
+			//tekitan objekti
+			$vabatahtlik=new StdClass();
+			$vabatahtlik->id = $id;
+			$vabatahtlik->nimi = $nimi;
+			$vabatahtlik->kirjeldus = $kirjeldus;
+			$vabatahtlik->aeg = $aeg;
+			
+			//echo $plate."<br>";
+			//igakord massivi lisan juurde nr märgi
+			array_push($result,$vabatahtlik);
+		}
 		
+		
+		
+		
+		$stmt->close();
+		$mysqli->close();
+		
+		return $result;
+		
+	}
 	
 	
 	
-	
-	
-	
-	
-	
+	function cleanInput($input){
+		$input = trim($imput);
+		$input = htmlspecialchars($input);
+		$input = stripslashes($input);
+		return $imput;
+		
+	}
 	
 	
 ?>
