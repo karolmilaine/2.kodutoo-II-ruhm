@@ -2,7 +2,7 @@
 	
 	require("functions.php");
 	
-	// kui kasutaja on sisseloginud, siis suuna data lehele
+	// kui kasutaja on sisseloginud, siis suuna avaleheküljele lehele
 	if(isset ($_SESSION["userId"])) {
 		header("Location: avalehekülg.php");
 	}
@@ -152,7 +152,7 @@
 			<input placeholder="E-mail" name="signupEmail" type="email" value="<?=$signupEmail;?>" > <?php echo $signupEmailError; ?>
 			
 			
-			<input placeholder="Parool" name="signupPassword" type="password"> <?php echo $signupPasswordError; ?>
+			<input placeholder="Parool" name="signupPassword" type="password" > <?php echo $signupPasswordError; ?>
 						
 			
 			<?php if ($gender == "male") { ?>
