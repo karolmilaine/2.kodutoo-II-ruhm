@@ -178,10 +178,14 @@ foreach($voluntary_work_data as $c){
 
 $html .= "</tr>";
 
-	//$html .= "</table>";
+}
+
+
+//$html .= "</table>";
 
 //echo $html;
-}
+
+//$listHtml = "<br><br>";
 
 ?>
 

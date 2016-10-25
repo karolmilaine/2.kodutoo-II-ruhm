@@ -4,9 +4,11 @@ require("../../config.php");
 	session_start();
 	
 	
-	$database = "if16_karojyrg_2";
+
 
 	function signup($email, $password) {
+
+        $database = "if16_karojyrg_2";
 		
 		$mysqli = new mysqli(
 		
@@ -25,13 +27,16 @@ require("../../config.php");
 		} else {	
 			echo "ERROR ".$stmt->error;
 		}
-		
+        $stmt->close();
+        $mysqli->close();
 	}
 	
 	
 	function login($email, $password) {
+
+        $database = "if16_karojyrg_2";
 		
-		$notice = "";
+		$error = "";
 		
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],  $GLOBALS["serverPassword"],  $GLOBALS["database"]);
 		
@@ -42,6 +47,9 @@ require("../../config.php");
 			WHERE email = ?
 		
 		");
+
+        echo $mysqli->error;
+
 		// asendan ?
 		$stmt->bind_param("s", $email);
 		
@@ -63,10 +71,11 @@ require("../../config.php");
 				$_SESSION["userId"] = $id;
 				$_SESSION["userEmail"] = $emailFromDb;
 				
-				$_SESSION[message] = "<h1>Tere tulemast!</h1>";
+				$_SESSION["message"] = "<h1>Tere tulemast!</h1>";
 				
 				header("Location: avalehekülg.php");
-				
+                exit();
+
 			} else {
 				$notice = "Vale parool!";
 			}
@@ -76,7 +85,7 @@ require("../../config.php");
 			$notice = "Sellist emaili ei ole!";
 		}
 		
-		return $notice;
+		return $error;
 	}
 	
 	
@@ -88,9 +97,9 @@ require("../../config.php");
 	function save_voluntary_work($event_name,$place,$description,$date,$time){
 		$database="if16_karojyrg_2";
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
-	$stmt = $mysqli->prepare("INSERT INTO voluntary_work(event_name,place,description,date, time)VALUES(?,?)");
+	$stmt = $mysqli->prepare("INSERT INTO voluntary_work(event_name,place,description,date, time)VALUES(?,?,?,?,?,?)");
 	echo $mysqli->error;
-	$stmt-> bind_param("ss",$event_name,$place,$description,$date,$time);
+	$stmt-> bind_param("sssii",$event_name,$place,$description,$date,$time);
 	if($stmt->execute()){
 		echo "salvestamine õnnestus";
 		
@@ -121,7 +130,7 @@ require("../../config.php");
 		//mis vastab select lausele
 		while($stmt->fetch()) {
 			//tekitan objekti
-			$voluntary=new StdClass();
+			$voluntary = new StdClass();
 			$voluntary->id = $id;
 			$voluntary->nimi = $event_name;
 			$voluntary->asukoht = $place;
