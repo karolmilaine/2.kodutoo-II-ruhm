@@ -1,16 +1,11 @@
 <?php 
 require("../../config.php");
-	// functions.php
-	
-	// et saab kasutada $_SESSION muutujaid
-	// kõigis failides mis on selle failiga seotud
+
 	session_start();
 	
 	
 	$database = "if16_karojyrg_2";
-	
-	//var_dump($GLOBALS);
-	
+
 	function signup($email, $password) {
 		
 		$mysqli = new mysqli(
@@ -90,12 +85,12 @@ require("../../config.php");
 	
 	
 	
-	function saveVabatahtlik($nimi,$asukoht,$kirjeldus,$aeg){
+	function save_voluntary_work($event_name,$place,$description,$date,$time){
 		$database="if16_karojyrg_2";
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
-	$stmt = $mysqli->prepare("INSERT INTO Vabatahtliktoo(nimi,asukoht,kirjeldus,aeg)VALUES(?,?,?)");
+	$stmt = $mysqli->prepare("INSERT INTO voluntary_work(event_name,place,description,date, time)VALUES(?,?)");
 	echo $mysqli->error;
-	$stmt-> bind_param("ss",$nimi,$asukoht,$kirjeldus,$aeg);
+	$stmt-> bind_param("ss",$event_name,$place,$description,$date,$time);
 	if($stmt->execute()){
 		echo "salvestamine õnnestus";
 		
@@ -106,16 +101,16 @@ require("../../config.php");
 	$mysqli->close();
 	}
 	
-	function getAllVabatahtlik(){
+	function get_all_voluntary_work(){
 		$database="if16_karojyrg_2";
 		$mysqli = new mysqli ($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
 		$stmt = $mysqli ->prepare("
-		SELECT id, nimi, asukoht, kirjeldus, aeg
-		FROM Vabatahtliktoo
+		SELECT id, event_name, place, description, date, time
+		FROM voluntary_work
 		");
 		echo $mysqli->error;
 		
-		$stmt ->bind_result($id, $nimi,$asukoht, $kirjeldus, $aeg);
+		$stmt ->bind_result($id, $event_name,$place, $description, $date, $time);
 		$stmt->execute();
 		
 		//tekitan massiivi
@@ -126,16 +121,17 @@ require("../../config.php");
 		//mis vastab select lausele
 		while($stmt->fetch()) {
 			//tekitan objekti
-			$vabatahtlik=new StdClass();
-			$vabatahtlik->id = $id;
-			$vabatahtlik->nimi = $nimi;
-			$vabatahtlik->asukoht = $asukoht;
-			$vabatahtlik->kirjeldus = $kirjeldus;
-			$vabatahtlik->aeg = $aeg;
+			$voluntary=new StdClass();
+			$voluntary->id = $id;
+			$voluntary->nimi = $event_name;
+			$voluntary->asukoht = $place;
+			$voluntary->kirjeldus = $description;
+			$voluntary->kuupäev = $date;
+            $voluntary->kellaaeg = $time;
 			
 			//echo $plate."<br>";
 			//igakord massivi lisan juurde nr märgi
-			array_push($result,$vabatahtlik);
+			array_push($result,$voluntary);
 		}
 		
 		

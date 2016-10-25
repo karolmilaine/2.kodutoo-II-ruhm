@@ -17,8 +17,6 @@ header {
 </style>
 
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,18 +55,14 @@ li a.active {
 <body>
 
 <ul>
-  <li><a href="avalehekülg.php">Avaleht</a></li>
-  <li><a class="active" href="vabatahtlik_too_form.php">Lisa vabatahtlik töö</a></li>
-  <li><a href="contact.php">Kontakt</a></li>
+	<li><a href="avalehekülg.php">Avaleht</a></li>
+	<li><a class="active" href="vabatahtlik_too_form.php">Lisa vabatahtlik töö</a></li>
+	<li><a href="voluntarywork.php">Vabatahtlik töö</a></li>
+	<li><a href="contact.php">Kontakt</a></li>
 </ul>
 
 </body>
 </html>
-
-
-
-
-
 
 <h2>Lisa vabatahtlik töö</h2>
 <form method="POST">
@@ -84,13 +78,17 @@ li a.active {
 <br><br>
 
 <label> Sisestage ürituse kirjeldus</label><br>
-<textarea name="evenr_descripition" cols="30" rows="5"></textarea>
+<textarea name="event_descripition" cols="30" rows="5"></textarea>
 
 <br><br>
 
-<label> Toimumise aeg </label><br>
-<input name="date_and_time" type=text>
+<label> Toimumise kuupäev </label><br>
+<input placeholder="aaaa-kk-pp" name="date" type=date>
 
+<br><br>
+
+	<label> Toimumise kellaaeg </label><br>
+	<input placeholder="tt-mm-ss" name="time" type=time>
 <br><br>
 
 <input type="submit" value="Salvesta">
@@ -123,32 +121,32 @@ li a.active {
 		$msg = $_SESSION["message"];
 		//kui ühe näitame siis kustuta ära, et pärast refreshi ei näitaks
 		unset($_SESSION["message"]);
-		
-	
+
 	}
 	
 	var_dump($_POST);
 	
-    if(isset($_POST["nimi"]) &&
-	isset($_POST["asukoht"]) &&
-	isset($_POST["kirjeldus"])&&
-	isset($_POST["aeg"])&&
-	!empty($_POST["nimi"])&&
-	!empty($_POST["asukoht"])&&
-	!empty($_POST["kirjeldus"])&&
-	!empty($_POST["aeg"])
+    if(isset($_POST["event_name"]) &&
+	isset($_POST["place"]) &&
+	isset($_POST["description"])&&
+	isset($_POST["date"])&&
+	isset($_POST["time"])&&
+	!empty($_POST["event_name"])&&
+	!empty($_POST["place"])&&
+	!empty($_POST["description"])&&
+	!empty($_POST["date"])&&
+	!empty($_POST["time"])
 	){
-		saveVabatahtlik(cleanInput($_POST["nimi"]),$_POST["asukoht"],$_POST["kirjeldus"],$_POST["aeg"]);
+		save_voluntary_work(cleanInput($_POST["event_name"]),$_POST["place"],$_POST["description"],$_POST["date"],$_POST["time"]);
     }
 	
-	//saan kõik auto andmed
-	getAllVabatahtlik();
+	//saan kõik töö andmed
+	get_all_voluntary_work();
 	echo "<pre>";
 
 	
-	//saan kõik auto andmed
-	$VabatahtlikData = getAllVabatahtlik();
-	//var_dump($carData);
+	//saan kõik töö andmed
+	$voluntary_work_data = get_all_voluntary_work();
 	
 	echo "</pre>";
 ?>
@@ -159,30 +157,32 @@ $html = "<table>";
 
 $html .= "<tr>";
 	$html .= "<th>id</th>";
-	$html .= "<th>nimi</th>";
-	$html .= "<th>asukoht</th>";
-	$html .= "<th>kirjeldus</th>";
-	$html .= "<th>aeg</th>";
+	$html .= "<th>event_name</th>";
+	$html .= "<th>place</th>";
+	$html .= "<th>description</th>";
+	$html .= "<th>date</th>";
+	$html .="<th>time</th>";
 
 $html .= "</tr>";
 
-
 //iga liikme kohta massiivis
-foreach($VabatahtlikData as $c){
+foreach($voluntary_work_data as $c){
 	
 	$html .= "<tr>";
 	$html .= "<td>".$c->id."</td>";
-	$html .= "<td>".$c->nimi."</td>";
-	$html .= "<td>".$c->asukoht."</td>";
-	$html .= "<td>".$c->kirjeldus."</td>";
-	$html .= "<td>".$c->aeg."</td>";
-	
+	$html .= "<td>".$c->event_name."</td>";
+	$html .= "<td>".$c->place."</td>";
+	$html .= "<td>".$c->description."</td>";
+	$html .= "<td>".$c->date."</td>";
+	$html .= "<td>".$c->time."</td>";
 
 $html .= "</tr>";
 
-	//iga auto on $c
-	//echo $c->plate."<br>";
-	
+	//$html .= "</table>";
+
+//echo $html;
 }
 
 ?>
+
+

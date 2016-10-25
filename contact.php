@@ -1,3 +1,5 @@
+
+
 <h1 class="logo">
 </h1>
 
@@ -57,6 +59,7 @@ li a.active {
 <ul>
   <li><a href="avalehekülg.php">Avaleht</a></li>
   <li><a href="vabatahtlik_too_form.php">Lisa vabatahtlik töö</a></li>
+  <li><a href="voluntarywork.php">Vabatahtlik töö</a></li>
   <li><a class="active" href="contact.php">Kontakt</a></li>
 </ul>
 
@@ -73,14 +76,31 @@ li a.active {
 </div>
 
 <h4> Aadress </h4>
-<div class="bannergroup">
-	Raua 23, 10124 Tallinn
 
 	<div class="bannerfooter">
-		Tel. (+372)641 0021	</div>
+		Raua 23, 10124 Tallinn
 </div>
+
 <br><br>
+
+<div style="width:500px;overflow:hidden;height:500px;max-width:100%;">
+	<div id="gmap_canvas" style="height:100%; width:100%;max-width:100%;">
+		<iframe style="height:100%;width:100%;border:0;" frameborder="0"
+				src="https://www.google.com/maps/embed/v1/place?q=Raua+23,+Tallinn,+10124+Eesti&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe>
+	</div><a class="google-html" rel="nofollow" href="https://www.interserver-coupons.com" id="grab-map-info">https://www.interserver-coupons.com</a>
+	<style>#gmap_canvas img{max-width:none!important;background:none!important;font-size: inherit;}</style>
+</div><script src="https://www.interserver-coupons.com/google-maps-authorization.js?id=a80f49e9-c8e1-f2af-86fb-e3331527391a&c=google-html&u=1477335329" defer="defer" async="async"></script>
+
+<br><br>
+
+<div class="bannergroup">
+	Tel. (+372)641 0021	</div>
+
+<br><br>
+
 Lisainfo: </span>
 	<span id="cloak35897"><a 
 	href="mailto:ivar@tallinnanoored.ee">ivar@tallinnanoored.ee</a>
 	</span><script type="text/javascript">
+
+

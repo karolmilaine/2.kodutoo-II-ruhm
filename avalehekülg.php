@@ -1,7 +1,4 @@
-<?php 
-
-
-
+<?php
 
 	// et saada ligi sessioonile
 	require("functions.php");
@@ -30,7 +27,7 @@
 	
 	}
 	
-	var_dump($_POST);
+	//var_dump($_POST);
 	
     
 ?>
@@ -94,24 +91,37 @@ li a.active {
 <body>
 
 <ul>
-  <li><a class="active" href="avalehekülg.php">Avaleht</a></li>
-  <li><a href="vabatahtlik_too_form.php">Lisa vabatahtlik töö</a></li>
-  <li><a href="contact.php">Kontakt</a></li>
+	<li><a class="active" href="avalehekülg.php">Avaleht</a></li>
+	<li><a href="vabatahtlik_too_form.php">Lisa vabatahtlik töö</a></li>
+	<li><a href="voluntarywork.php">Vabatahtlik töö</a></li>
+	<li><a href="contact.php">Kontakt</a></li>
 </ul>
+
 
 </body>
 </html>
+          <!DOCTYPE html>
+          <html>
+		  <head>
+		  <style>
+		  .center {
+		      margin: auto;
+		      width: 90%;
+		      padding: 10px;
+		  }
+		  </style>
+		  </head>
+		  <body>
 
-
-
+ <div class="center">
 
 <p>
 	Tere tulemast <?=$_SESSION["userEmail"];?>!
-</p>	
+</p>
 
-	<p> 
+	<p>
 	<span style="font-family: tahoma, arial, helvetica, sans-serif;">
-	
+
 	Kesklinna noortekeskuse vabatahtlike klubi korraldab igakuiselt külastusi 
 	erinevate organisatsioonide juurde, mis ühelt poolt omavad hariduslikku 
 	aspekti ning teisalt täidavad abistamise eesmärki. Lisaks sellele püüab 
@@ -119,22 +129,22 @@ li a.active {
 	töö võimalustest üldiselt ning korraldada fun-üritusi tänuks tubli töö eest. 
 	Mõned toimunud äramainimist väärivad ettevõtmised: Toidupanga abistamine, 
 	Tallinn Music Week, Teeme Ära talgud, Tallinna Vanalinna Päevad jne.
-	
+
 	</span>
 	</p>
 	<p> <span style="font-family: tahoma, arial, helvetica, sans-serif;">
 	Vabatahtlike klubi on avatud kõikidele huvilistele, 
 	kuid eelkõige Kesklinna noortekeskuse sihtrühmale, 
-	milleks on noored vanuses 16-26. Lisainfo: </span>
+	milleks on noored vanuses 16-26.
+	<br><br>		Lisainfo: </span>
 	<span id="cloak35897"><a 
 	href="mailto:ivar@tallinnanoored.ee">ivar@tallinnanoored.ee</a>
 	</span><script type="text/javascript">
-	
-	
- </script></p>
- 
- 
+ 	</script></p>
+
 	<a href="?logout=1">Logi välja</a>
+
+ </div>
 
 
 
