@@ -1,167 +1,244 @@
-<?php 
+<?php
 require("../../config.php");
+session_start();
 
-	session_start();
-	
-	
+$database = "if16_karojyrg_2";
 
+//***************
+//**** SIGNUP ***
+//***************
 
-	function signup($email, $password) {
+function signup($email, $password, $gender) {
 
-        $database = "if16_karojyrg_2";
-		
-		$mysqli = new mysqli(
-		
-		$GLOBALS["serverHost"], 
-		$GLOBALS["serverUsername"],  
-		$GLOBALS["serverPassword"],  
-		$GLOBALS["database"]
-		
-		);
-		$stmt = $mysqli->prepare("INSERT INTO user_sample (email, password) VALUES (?, ?)");
-		echo $mysqli->error;
-		
-		$stmt->bind_param("ss", $email, $password );
-		if ( $stmt->execute() ) {
-			echo "salvestamine õnnestus";	
-		} else {	
-			echo "ERROR ".$stmt->error;
-		}
-        $stmt->close();
-        $mysqli->close();
-	}
-	
-	
-	function login($email, $password) {
+    $mysqli = new mysqli(
 
-        $database = "if16_karojyrg_2";
+        $GLOBALS["serverHost"],
+        $GLOBALS["serverUsername"],
+        $GLOBALS["serverPassword"],
+        $GLOBALS["database"]
+
+    );
+    $stmt = $mysqli->prepare("INSERT INTO user_sample (email, password, gender) VALUES (?, ?, ?)");
+    echo $mysqli->error;
+
+    $stmt->bind_param("sss", $email, $password, $gender );
+    if ( $stmt->execute() ) {
+        echo "salvestamine õnnestus";
+    } else {
+        echo "ERROR ".$stmt->error;
+    }
+    $stmt->close();
+    $mysqli->close();
+}
+
+//***************
+//**** LOGIN ****
+//***************
+
+function login($email, $password) {
+    $database = "if16_karojyrg_2";
+
+    $error = "";
+
+    $mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],  $GLOBALS["serverPassword"],  $GLOBALS["database"]);
+
+    $stmt = $mysqli->prepare("
 		
-		$error = "";
-		
-		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],  $GLOBALS["serverPassword"],  $GLOBALS["database"]);
-		
-		$stmt = $mysqli->prepare("
-		
-			SELECT id, email, password, created
+			SELECT id, email, password, created, gender
 			FROM user_sample
 			WHERE email = ?
 		
 		");
+    echo $mysqli->error;
+    // asendan ?
+    $stmt->bind_param("s", $email);
 
-        echo $mysqli->error;
+    // määran muutujad reale mis kätte saan
+    $stmt->bind_result($id, $emailFromDb, $passwordFromDb, $created, $genderFromDB);
 
-		// asendan ?
-		$stmt->bind_param("s", $email);
-		
-		// määran muutujad reale mis kätte saan
-		$stmt->bind_result($id, $emailFromDb, $passwordFromDb, $created);
-		
-		$stmt->execute();
-		
-		// ainult SLECTI'i puhul
-		if ($stmt->fetch()) {
-			
-			// vähemalt üks rida tuli
-			// kasutaja sisselogimise parool räsiks
-			$hash = hash("sha512", $password);
-			if ($hash == $passwordFromDb) {
-				// õnnestus 
-				echo "Kasutaja ".$id." logis sisse";
-				
-				$_SESSION["userId"] = $id;
-				$_SESSION["userEmail"] = $emailFromDb;
-				
-				$_SESSION["message"] = "<h1>Tere tulemast!</h1>";
-				
-				header("Location: avalehekülg.php");
-                exit();
+    $stmt->execute();
 
-			} else {
-				$notice = "Vale parool!";
-			}
-			
-		} else {
-			// ei leitud ühtegi rida
-			$notice = "Sellist emaili ei ole!";
-		}
-		
-		return $error;
-	}
-	
-	
-	
-	
-	
-	
-	
-	function save_voluntary_work($event_name,$place,$description,$date,$time){
-		$database="if16_karojyrg_2";
-		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
-	$stmt = $mysqli->prepare("INSERT INTO voluntary_work(event_name,place,description,date, time)VALUES(?,?,?,?,?,?)");
-	echo $mysqli->error;
-	$stmt-> bind_param("sssii",$event_name,$place,$description,$date,$time);
-	if($stmt->execute()){
-		echo "salvestamine õnnestus";
-		
-	}else{
-		echo "ERROR".$stmt->error;
-	}
-	$stmt->close();
-	$mysqli->close();
-	}
-	
-	function get_all_voluntary_work(){
-		$database="if16_karojyrg_2";
-		$mysqli = new mysqli ($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
-		$stmt = $mysqli ->prepare("
+    // ainult SLECTI'i puhul
+    if ($stmt->fetch()) {
+
+        // vähemalt üks rida tuli
+        // kasutaja sisselogimise parool räsiks
+        $hash = hash("sha512", $password);
+        if ($hash == $passwordFromDb) {
+            // õnnestus
+            echo "Kasutaja ".$id." logis sisse";
+
+            $_SESSION["userId"] = $id;
+            $_SESSION["userEmail"] = $emailFromDb;
+
+            $_SESSION["userGender"] = ucfirst($genderFromDB);
+
+            $_SESSION["message"] = "<h1>Tere tulemast!</h1>";
+
+            header("Location: avalehekülg.php");
+            exit();
+        } else {
+            $notice = "Vale parool!";
+        }
+
+    } else {
+        // ei leitud ühtegi rida
+        $notice = "Sellist emaili ei ole!";
+    }
+
+    return $error;
+
+    $stmt->close();
+    $mysqli->close();
+}
+
+
+//*********************
+//***VOLUNTARY WORK ***
+//*********************
+
+function save_voluntary_work($event_name,$place,$description,$date,$time){
+    $database="if16_karojyrg_2";
+    $mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+    $stmt = $mysqli->prepare("INSERT INTO voluntary_work(event_name,place,description,date, time)VALUES(?,?,?,?,?,?)");
+    echo $mysqli->error;
+    $stmt-> bind_param("sssii",$event_name,$place,$description,$date,$time);
+    if($stmt->execute()){
+        echo "salvestamine õnnestus";
+
+    }else{
+        echo "ERROR".$stmt->error;
+    }
+    $stmt->close();
+    $mysqli->close();
+}
+
+
+//*********************
+//***VOLUNTARY WORK ***
+//*********************
+
+function saveUserVoluntaryWork ($work_id){
+    $database="if16_karojyrg_2";
+    $mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+    $stmt = $mysqli->prepare("SELECT id FROM user_voluntary_work WHERE user_id=? AND work_id=?");
+    $stmt->bind_param("ii",$_SESSION["userId"], $work_id);
+    $stmt->execute();
+
+    if($stmt->fetch()){
+        echo "juba olemas";
+
+        return;
+    }
+
+    $stmt->close();
+
+    $stmt = $mysqli->prepare("INSERT INTO user_voluntary_work(user_id, work_id)VALUES (?,?)");
+
+    echo $mysqli->error;
+    $stmt->bind_param("ii",$_SESSION["userId"], $work_id);
+    if($stmt->execute()) {
+        echo "salvestamine õnnestus";
+    } else {
+        echo "ERROR ".$stmt->error;
+    }
+    $stmt->close();
+
+
+}
+
+
+//*********************
+//***VOLUNTARY WORK ***
+//*********************
+
+
+function get_all_voluntary_work(){
+    $database="if16_karojyrg_2";
+    $mysqli = new mysqli ($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+    $stmt = $mysqli ->prepare("
 		SELECT id, event_name, place, description, date, time
 		FROM voluntary_work
 		");
-		echo $mysqli->error;
-		
-		$stmt ->bind_result($id, $event_name,$place, $description, $date, $time);
-		$stmt->execute();
-		
-		//tekitan massiivi
-		$result = array();
-		
-		
-		//tee seda seni, kuni on rida andmeid
-		//mis vastab select lausele
-		while($stmt->fetch()) {
-			//tekitan objekti
-			$voluntary = new StdClass();
-			$voluntary->id = $id;
-			$voluntary->nimi = $event_name;
-			$voluntary->asukoht = $place;
-			$voluntary->kirjeldus = $description;
-			$voluntary->kuupäev = $date;
-            $voluntary->kellaaeg = $time;
-			
-			//echo $plate."<br>";
-			//igakord massivi lisan juurde nr märgi
-			array_push($result,$voluntary);
-		}
-		
-		
-		
-		
-		$stmt->close();
-		$mysqli->close();
-		
-		return $result;
-		
-	}
-	
-	
-	
-	function cleanInput($input){
-		$input = trim($imput);
-		$input = htmlspecialchars($input);
-		$input = stripslashes($input);
-		return $imput;
-		
-	}
-	
-	
+    echo $mysqli->error;
+
+    $stmt ->bind_result($id, $event_name,$place, $description, $date, $time);
+    $stmt->execute();
+
+    //tekitan massiivi
+    $result = array();
+
+
+    //tee seda seni, kuni on rida andmeid
+    //mis vastab select lausele
+    while($stmt->fetch()) {
+        //tekitan objekti
+        $i = new StdClass();
+        $i->id = $id;
+        $i->nimi = $event_name;
+        $i->asukoht = $place;
+        $i->kirjeldus = $description;
+        $i->kuupäev = $date;
+        $i->kellaaeg = $time;
+
+        //echo $plate."<br>";
+        //igakord massivi lisan juurde nr märgi
+        array_push($result,$i);
+    }
+
+
+
+
+    $stmt->close();
+
+    return $result;
+
+}
+
+//*********************
+//***VOLUNTARY WORK ***
+//*********************
+
+function get_all_user_voluntary_work(){
+    $database="if16_karojyrg_2";
+    $mysqli = new mysqli ($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+
+    $stmt = $mysqli->prepare("SELECT event_name from voluntary_work join user_voluntary_work
+    on voluntary_work.id = user_voluntary_work.work_id where user_voluntary_work.user_id = ?");
+
+    echo $mysqli->error;
+
+    $stmt->bind_param("i", $_SESSION["userId"]);
+
+    $stmt->bind_result($voluntary_work);
+    $stmt->execute();
+
+    $result = array();
+    while ($stmt->fetch()) {
+        $i = new StdClass();
+        $i->subjects = $voluntary_work;
+        array_push($result, $i);
+    }
+    $stmt->close();
+    return $result;
+}
+
+
+
+
+//***************
+//** CLEANINPUT *
+//***************
+
+function cleanInput($input){
+    $input = trim($imput);
+    $input = htmlspecialchars($input);
+    $input = stripslashes($input);
+    return $imput;
+
+}
+
 ?>
+
+
+

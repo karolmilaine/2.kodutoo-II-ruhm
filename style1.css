@@ -1,3 +1,4 @@
+
 body{
 	font-family:sans-serif,Arial;
 	color: white;
@@ -35,21 +36,21 @@ form input
 	font-size: 18px;
 	color: white;
 	-webkit-transition-duration: 0.25s;
-		transition-duration: 0.25s;
+	transition-duration: 0.25s;
 	font-weight: 300;
-	
+
 }
 
 form input:hover
 {
 	background-color: white;
-	
+
 }
 form input:focus{
 	background-color: white;
 	width: 300px;
 	color: #94cfdd;
-	
+
 }
 
 form button{
@@ -62,7 +63,7 @@ form button{
 	width: 250px;
 	cursor: pointer;
 	font-size: 18px;
-	
+
 }
 
 form button: hover{
@@ -70,38 +71,38 @@ form button: hover{
 }
 
 .fieldBlock1
-    {
-    display: block;
-    background-color: rgba(200, 200, 200);
-    width: 200px;
-    position: absolute;
-    left: 250px;
+{
+	display: block;
+	background-color: rgba(200, 200, 200);
+	width: 200px;
+	position: absolute;
+	left: 250px;
 	top:80px;
-    padding: 15px;
+	padding: 15px;
 	outline:0;
 	border: 1px solid rgba(255,255,255,0.4);
 	background-color: rgba(255,255,255,0.2);
 	width: 300px;
 	border:300 px;
 	border-radius: 3px
-    }
+}
 
-	.fieldBlock2
-    {
-    display: block;
-    background-color: rgba(200, 200, 200);
-    width: 200px;
-    position: absolute;
-    right: 250px;
+.fieldBlock2
+{
+	display: block;
+	background-color: rgba(200, 200, 200);
+	width: 200px;
+	position: absolute;
+	right: 250px;
 	top: 80px;
-    padding: 15px;
+	padding: 15px;
 	outline:0;
 	border: 1px solid rgba(255,255,255,0.4);
 	background-color: rgba(255,255,255,0.2);
 	width: 300px;
 	border:300 px;
 	border-radius: 3px
-    }
+}
 
 
 .center {
