@@ -52,11 +52,12 @@ if ( isset($_POST["signupEmail"]) &&
 	// ühtegi viga ei ole, kõik vajalik olemas
 	echo "salvestan...<br>";
 	echo "email ".$signupEmail."<br>";
-	echo "parool ".$_POST["signupPassword"]."<br>";
+	//echo "parool ".$_POST["signupPassword"]."<br>";
 	$password = hash("sha512", $_POST["signupPassword"]);
-	echo "räsi ".$password."<br>";
+	//echo "räsi ".$password."<br>";
+	echo"Kasutaja loodud<br>";
 	//kutsun funktsiooni, et salvestada
-	signup($signupEmail, $password);
+	signup($signupEmail, $password, $gender);
 }
 $notice = "";
 // mõlemad login vormi väljad on täidetud
