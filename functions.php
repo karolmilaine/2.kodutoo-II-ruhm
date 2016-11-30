@@ -100,9 +100,9 @@ function login($email, $password) {
 function save_voluntary_work($event_name,$place,$description,$date,$time){
     $database="if16_karojyrg_2";
     $mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
-    $stmt = $mysqli->prepare("INSERT INTO voluntary_work(event_name,place,description,date, time)VALUES(?,?,?,?,?,?)");
+    $stmt = $mysqli->prepare("INSERT INTO voluntary_work(event_name,place,description,date, time)VALUES(?,?,?,?,?)");
     echo $mysqli->error;
-    $stmt-> bind_param("sssii",$event_name,$place,$description,$date,$time);
+    $stmt-> bind_param("sssss",$event_name,$place,$description,$date,$time);
     if($stmt->execute()){
         echo "salvestamine õnnestus";
 
@@ -110,7 +110,9 @@ function save_voluntary_work($event_name,$place,$description,$date,$time){
         echo "ERROR".$stmt->error;
     }
     $stmt->close();
-    $mysqli->close();
+
+	
+
 }
 
 
@@ -118,7 +120,7 @@ function save_voluntary_work($event_name,$place,$description,$date,$time){
 //***VOLUNTARY WORK ***
 //*********************
 
-function saveUserVoluntaryWork ($work_id){
+function save_user_voluntary_work ($work_id){
     $database="if16_karojyrg_2";
     $mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
     $stmt = $mysqli->prepare("SELECT id FROM user_voluntary_work WHERE user_id=? AND work_id=?");
@@ -175,13 +177,12 @@ function get_all_voluntary_work(){
         //tekitan objekti
         $i = new StdClass();
         $i->id = $id;
-        $i->nimi = $event_name;
-        $i->asukoht = $place;
-        $i->kirjeldus = $description;
-        $i->kuupäev = $date;
-        $i->kellaaeg = $time;
+        $i->event_name = $event_name;
+        $i->place = $place;
+        $i->description = $description;
+        $i->date = $date;
+        $i->time = $time;
 
-        //echo $plate."<br>";
         //igakord massivi lisan juurde nr märgi
         array_push($result,$i);
     }
@@ -216,7 +217,7 @@ function get_all_user_voluntary_work(){
     $result = array();
     while ($stmt->fetch()) {
         $i = new StdClass();
-        $i->subjects = $voluntary_work;
+        $i-> voluntary_work = $voluntary_work;
         array_push($result, $i);
     }
     $stmt->close();
