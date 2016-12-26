@@ -150,7 +150,8 @@ foreach($voluntary_work_data as $c){
 <!DOCTYPE html>
 <html>
 <head>
-	<style>
+<style>
+
 		ul {
 			list-style-type: none;
 			margin: 0;
